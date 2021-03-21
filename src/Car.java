@@ -1,4 +1,6 @@
 import java.util.concurrent.*;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class Car implements Runnable {
     private static int CARS_COUNT;
@@ -7,8 +9,6 @@ public class Car implements Runnable {
     private String name;
     private CountDownLatch countDownToStart;
     private CountDownLatch countDownToFinish;
-
-
     public String getName() {
         return name;
     }
@@ -54,6 +54,16 @@ public class Car implements Runnable {
         for (int i = 0; i < race.getStages().size(); i++) {
                 race.getStages().get(i).go(this);
             }
+        try {
+           MainClass.lock.lock();
+            if(!MainClass.wasWinner){
+                System.out.println(this.name + " ПОБЕДИТЕЛЬ");
+                MainClass.wasWinner = true;
+            }
+        } finally {
+            MainClass.lock.unlock();
+        }
+
         countDownToFinish.countDown();
         }
     }
