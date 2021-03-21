@@ -7,6 +7,15 @@ import java.util.concurrent.Semaphore;
 
 public class Main {
     public static void main(String[] args) throws InterruptedException {
+        Runnable myRun = new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("hello world");
+            }
+        };
+        myRun.run();
+
+
 
         Semaphore mySemaphore = new Semaphore(2);
         for (int i = 0; i <5 ; i++) {
@@ -16,6 +25,7 @@ public class Main {
                 try{
                     Thread.sleep(2000);
                     mySemaphore.acquire();
+
                     Thread.sleep(5000);
                     System.out.println("поток "+w+" занял семафор");
                 }catch(InterruptedException e){

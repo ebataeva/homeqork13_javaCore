@@ -7,8 +7,8 @@ import java.util.concurrent.TimeUnit;
 
 public class CyclucBarrierSample {
     public static void main(String[] args) {
-        CyclicBarrier myBarrier = new CyclicBarrier(3);
-        for (int i = 0; i < 5; i++) {
+        CyclicBarrier myBarrier = new CyclicBarrier(4);
+        for (int i = 0; i < 4; i++) {
             final int w = i;
             new Thread(()->{
 
